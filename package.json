@@ -1,0 +1,32 @@
+{
+  "name": "",
+  "version": "0.0.1",
+  "description": "Food Journal",
+  "main": "app.js",
+  "engines": {
+    "node": "10.x"
+  },
+  "scripts": {
+    "now-build": "npm run build",
+    "build": "gulp",
+    "watch": "gulp watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/TickleThePanda/food-journal.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {},
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-handlebars": "^3.1.0",
+    "handlebars": "^4.7.2"
+  },
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^7.0.1",
+    "gulp-clean-css": "^4.2.0",
+    "gulp-sass": "^4.0.2"
+  }
+}

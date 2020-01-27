@@ -1,0 +1,22 @@
+{
+  "version": 2,
+  "name": "food-journal",
+  "alias": [
+    "ticklethepanda-food-journal.now.sh",
+    "food-journal.ticklethepanda.dev"
+  ],
+  "env": {
+  },
+  "build": {
+    "env": {
+    }
+  },
+  "builds": [
+    { "src": "package.json", "use": "@now/static-build", "config": { "distDir": "site" } },
+    { "src": "src/lambda/*.js", "use": "@now/node" }
+  ],
+  "routes": [
+    { "src": "/", "dest": "/src/lambda/food.js" },
+    { "src": "/static/(.*)", "dest": "$1" }
+  ]
+}
