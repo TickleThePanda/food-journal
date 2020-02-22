@@ -65,7 +65,7 @@ app.use(function auth(req, res, next) {
 });
 
 function isAuthorisedToken(token) {
-  return JWT.verify(token, AUTH_KEY);
+  return token !== undefined && token !== null && JWT.verify(token, AUTH_KEY);
 }
 
 app.get('/login/', async (req, res) => {
