@@ -19,3 +19,8 @@ Welcome to your food journal.
     {{/meals}}
   </div>
 {{/food}}
+{{^food}}
+  <p><strong>No entries</strong>
+{{/food}}
+
+{{> date-navigator }}

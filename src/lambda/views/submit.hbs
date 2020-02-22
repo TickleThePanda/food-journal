@@ -27,11 +27,6 @@
   <button value="save" class="meals-form__submit-day-button">Save day</button>
 </form>
 
-<div class="submit-navigation">
-  <a href="{{ prevDate.link }}">← {{ prevDate.label }}</a>
-  {{#nextDate}}
-    <a href="{{ link }}">{{ label }} →</a>
-  {{/nextDate}}
-</div>
+{{> date-navigator }}
 
 <script src="/assets/js/submit.js"></script>

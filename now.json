@@ -24,6 +24,8 @@
   "routes": [
     { "src": "/", "dest": "/src/lambda/food-route.js" },
     { "src": "/login/", "dest": "/src/lambda/food-route.js" },
+    { "src": "/log/", "dest": "/src/lambda/food-route.js" },
+    { "src": "/log/(.*)/", "dest": "/src/lambda/food-route.js" },
     { "src": "/submit/", "dest": "/src/lambda/food-route.js" },
     { "src": "/submit/(.*)/", "dest": "/src/lambda/food-route.js" },
     { "src": "/assets/(.*)", "dest": "$1" }

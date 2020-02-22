@@ -7,7 +7,7 @@ import MarkdownIt from 'markdown-it';
 
 import FoodDb from './food-db.js';
 
-import { format, add, startOfWeek, endOfWeek } from 'date-fns';
+import { format, add, isBefore, isAfter } from 'date-fns';
 
 import bent from 'bent';
 
@@ -91,25 +91,62 @@ app.post('/login/', async (req, res) => {
 
 app.get('/', async (req, res) => {
 
-  const now = Date.now();
+  res.redirect('/log/' + formatDateLink(Date.now()) + '/');
 
-  const firstDayOfThisWeek = startOfWeek(now);
-  const lastDayOfThisWeek = endOfWeek(now);
+});
+
+app.get('/log/:year-:month-:day/', async (req, res) => {
+
+  const year = req.params.year;
+  const month = req.params.month;
+  const day = req.params.day;
+
+  if (isDateValid(year, month, day)) {
+    res.status(404);
+    res.send("Not found");
+    return;
+  }
+
+  const dateString = req.params.year + '-' + req.params.month + '-' + req.params.day;
+  const endOfWeekPeriod = Date.parse(dateString);
+
+  const startOfWeekPeriod = add(endOfWeekPeriod, { days: -7 });
 
   const monthsToFetch = [
-    firstDayOfThisWeek.toISOString().slice(0, 7),
-    lastDayOfThisWeek.toISOString().slice(0, 7)
+    formatMonth(endOfWeekPeriod),
+    formatMonth(startOfWeekPeriod)
   ].filter(function onlyUnique(value, index, self) {
     return self.indexOf(value) === index;
   });
 
   const foodLog = await foodDb.fetchLogForMonths(monthsToFetch);
 
+  const endOfPreviousWeekPeriod = add(startOfWeekPeriod, { days: -1 });
+  const endOfNextWeekPeriod = add(endOfWeekPeriod, { days: 8 });
+
+  const startOfNextWeekPeriod = add(endOfWeekPeriod, { days: 1 });
+
   const data = {
-    food: foodLog.reverse()
+    food: foodLog.reverse().filter(entry =>
+      isAfter(Date.parse(entry.entryMonth + '-' + entry.entryDay), endOfPreviousWeekPeriod)
+        && isBefore(Date.parse(entry.entryMonth + '-' + entry.entryDay), startOfNextWeekPeriod)
+    ),
+    prevDate: {
+      label: "Previous week",
+      title: formatDatePretty(endOfPreviousWeekPeriod),
+      link: '/log/' + formatDateLink(endOfPreviousWeekPeriod) + '/',
+      value: formatDateLink(endOfPreviousWeekPeriod)
+    },
+    nextDate: endOfNextWeekPeriod < Date.now() ? {
+      label: "Next week",
+      title: formatDatePretty(endOfNextWeekPeriod),
+      link: '/log/' + formatDateLink(endOfNextWeekPeriod) + '/',
+      value: formatDateLink(endOfNextWeekPeriod)
+    } : null,
   };
 
   res.render('home', data);
+
 });
 
 app.get('/submit/', async (req, res) => {
@@ -206,6 +243,10 @@ function formatDatePretty(date) {
 
 function formatDateLink(date) {
   return format(date, 'yyyy-MM-dd');
+}
+
+function formatMonth(date) {
+  return format(date, 'yyyy-MM')
 }
 
 module.exports = app;

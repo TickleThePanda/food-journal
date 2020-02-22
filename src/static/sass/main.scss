@@ -32,6 +32,10 @@ main {
   margin-top: 1em;
 }
 
+strong {
+  font-weight: 600;
+}
+
 .content-container {
   max-width: 35em;
   width: 100%;
@@ -50,7 +54,7 @@ main {
 
 }
 
-.submit-navigation {
+.date-navigation {
   display: flex;
 
   flex-wrap: wrap;
