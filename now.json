@@ -9,7 +9,9 @@
     "FOOD_JOURNAL_AWS_ACCESS_KEY": "@food-journal-aws-access-key",
     "FOOD_JOURNAL_AWS_SECRET_KEY": "@food-journal-aws-secret-key",
     "FOOD_JOURNAL_AWS_REGION": "@food-journal-aws-region",
-    "FOOD_JOURNAL_EARLIEST_MONTH": "2020-01"
+    "FOOD_JOURNAL_EARLIEST_MONTH": "2020-01",
+    "TICKLETHEPANDA_AUTH_URL": "https://auth.api.ticklethepanda.dev/tokens/users",
+    "TICKLETHEPANDA_AUTH_KEY": "@ticklethepanda-auth-key"
   },
   "build": {
     "env": {
@@ -20,9 +22,10 @@
     { "src": "src/lambda/*.js", "use": "@now/node" }
   ],
   "routes": [
-    { "src": "/", "dest": "/src/lambda/food.js" },
-    { "src": "/submit/", "dest": "/src/lambda/food.js" },
-    { "src": "/submit/(.*)/", "dest": "/src/lambda/food.js" },
+    { "src": "/", "dest": "/src/lambda/food-route.js" },
+    { "src": "/login/", "dest": "/src/lambda/food-route.js" },
+    { "src": "/submit/", "dest": "/src/lambda/food-route.js" },
+    { "src": "/submit/(.*)/", "dest": "/src/lambda/food-route.js" },
     { "src": "/assets/(.*)", "dest": "$1" }
   ]
 }

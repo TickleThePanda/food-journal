@@ -9,6 +9,14 @@ import FoodDb from './food-db.js';
 
 import { format, add, startOfWeek, endOfWeek } from 'date-fns';
 
+import bent from 'bent';
+
+import { JWK, JWT } from 'jose';
+
+const AUTH_KEY = JWK.asKey(process.env.TICKLETHEPANDA_AUTH_KEY);
+
+const AUTH_URL = process.env.TICKLETHEPANDA_AUTH_URL;
+
 const app = express();
 
 const foodDb = new FoodDb();
@@ -16,6 +24,7 @@ const foodDb = new FoodDb();
 const md = new MarkdownIt();
 
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(cookieParser());
 
 app.enable('strict routing');
 
@@ -38,6 +47,47 @@ app.engine('hbs', expressHandlebars({
   }
 }));
 
+app.use(function auth(req, res, next) {
+
+  const token = req.cookies.token;
+
+  const authed = isAuthorisedToken(token);
+
+  if (req.url !== '/login/' && !authed) {
+    res.redirect('/login/');
+  } else {
+
+    const tokenPayload = token.split('.')[1];
+    res.auth = JSON.parse(Buffer.from(tokenPayload, 'base64').toString('utf-8'));
+
+    next();
+  }
+});
+
+function isAuthorisedToken(token) {
+  return JWT.verify(token, AUTH_KEY);
+}
+
+app.get('/login/', async (req, res) => {
+  res.render('login');
+});
+
+app.post('/login/', async (req, res) => {
+  const request = bent('POST', 'string', AUTH_URL, {
+    'Authorization': 'Basic ' + Buffer.from(req.body.username + ':' + req.body.password).toString('base64')
+  });
+
+  const token = await request();
+
+  res.cookie('token', token, {
+    httpOnly: true,
+    sameSite: true,
+    maxAge: (365 * 24 * 60 * 60)
+  });
+
+  res.redirect('/');
+})
+
 app.get('/', async (req, res) => {
 
   const now = Date.now();
@@ -53,8 +103,6 @@ app.get('/', async (req, res) => {
   });
 
   const foodLog = await foodDb.fetchLogForMonths(monthsToFetch);
-
-  console.log(foodLog);
 
   const data = {
     food: foodLog.reverse()
@@ -86,8 +134,6 @@ app.get('/submit/:year-:month-:day/', async (req, res) => {
   const dateAfter = add(givenDate, { days: 1});
 
   const foodLog = await foodDb.fetchLogForDay(year + '-' + month, day);
-
-  console.log(foodLog);
 
   res.render('submit', {
     date: {
