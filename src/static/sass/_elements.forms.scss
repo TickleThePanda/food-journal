@@ -1,0 +1,41 @@
+input, label, textarea, button {
+  appearance: none;
+
+  display: block;
+  font-family: inherit;
+  font-size: inherit;
+
+  border: none;
+
+}
+
+label, button {
+  margin-top: 0.5rem;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 0.5rem;
+
+  margin-top: 0.25rem;
+
+  background-color: #ffffff;
+}
+
+textarea {
+  min-width: 100%;
+  max-width: 100%;
+  height: fit-content;
+  min-height: 25vh;
+}
+
+label {
+  font-size: 0.8em;
+  font-weight: 400;
+  font-variant-caps: small-caps;
+  letter-spacing: 0.05em;
+}
+
+label:first-child {
+  margin-top: 0;
+}

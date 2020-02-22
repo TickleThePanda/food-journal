@@ -1,0 +1,41 @@
+<div class="meals-form__list-item js-meal-item">
+  <label
+      for="title-{{meal-index}}"
+      class="meals-form__label">
+    Title
+  </label>
+  <input
+      type="text" id="title-{{meal-index}}"
+      name="meals[{{meal-index}}][title]"
+      value="{{meal.title}}"
+      placeholder="e.g. Lunch"
+      class="meals-form__entry title-input"
+      required />
+
+  <label
+      for="description-{{meal-index}}"
+      class="meals-form__label">
+    Description (markdown)
+  </label>
+  <textarea
+      id="description-{{meal-index}}"
+      name="meals[{{meal-index}}][description]"
+      placeholder="e.g. Tomato pasta"
+      required
+      class="meals-form__entry"
+  >{{~meal.description~}}</textarea>
+
+  <label
+      for="feeling-{{meal-index}}"
+      class="meals-form__label">
+    Feeling
+  </label>
+  <input
+      type="text"
+      id="feeling-{{meal-index}}"
+      name="meals[{{meal-index}}][feeling]"
+      value="{{meal.feeling}}"
+      placeholder="e.g. Good!"
+      required
+      class="meals-form__entry"/>
+</div>

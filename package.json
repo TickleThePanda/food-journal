@@ -1,10 +1,10 @@
 {
-  "name": "",
+  "name": "food-journal",
   "version": "0.0.1",
   "description": "Food Journal",
   "main": "app.js",
   "engines": {
-    "node": "10.x"
+    "node": "12.x"
   },
   "scripts": {
     "now-build": "npm run build",
@@ -19,9 +19,14 @@
   "license": "MIT",
   "bugs": {},
   "dependencies": {
+    "aws-sdk": "^2.610.0",
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.4",
+    "date-fns": "^2.9.0",
     "express": "^4.17.1",
     "express-handlebars": "^3.1.0",
-    "handlebars": "^4.7.2"
+    "handlebars": "^4.7.2",
+    "markdown-it": "^10.0.0"
   },
   "devDependencies": {
     "gulp": "^4.0.2",

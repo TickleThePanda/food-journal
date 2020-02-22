@@ -1,0 +1,113 @@
+@import '_generic.reset.scss';
+@import '_generic.typography.scss';
+
+@import '_elements.headings.scss';
+@import '_elements.lists.scss';
+@import '_elements.forms.scss';
+
+@import '_components.meals-form.scss';
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  padding-left: 2em;
+  padding-right: 2em;
+  display: grid;
+
+  background-color: #e8e8e8;
+
+}
+
+h1 {
+  text-align: center;
+  font-size: 1.2em;
+  a:link, a:visited {
+    text-decoration: none;
+  }
+}
+
+main {
+  margin-top: 1em;
+}
+
+.content-container {
+  max-width: 35em;
+  width: 100%;
+  padding: 2em;
+  padding-top: 1.5em;
+
+  margin-left: auto;
+  margin-right: auto;
+
+  background-color: #f8f8f8;
+
+  min-height: calc(100vh - 4em);
+
+  margin-top: 2em;
+  margin-bottom: 2em;
+
+}
+
+.submit-navigation {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  margin-top: 1em;
+
+  a:last-child {
+    margin-left: auto;
+  }
+
+  a:last-child:first-child {
+    margin-left: 0;
+  }
+}
+
+.title-input {
+  font-size: 1.3em;
+}
+
+.log-entry__title {
+  margin-top: 1.5em;
+}
+
+.log-entry__meal {
+  display: grid;
+  grid-template-areas: "t f"
+                       "d d";
+  grid-template-columns: auto 1fr;
+
+  grid-column-gap: 0.5em;
+
+  margin-top: 0.7em;
+}
+
+$log-entry-header-font-size: 0.8em;
+
+
+.log-entry__meal-title {
+  margin-top: 0;
+
+  grid-area: t;
+
+  font-size: $log-entry-header-font-size;
+}
+
+.log-entry__meal-feeling {
+  grid-area: f;
+  color: #666;
+
+  font-size: $log-entry-header-font-size;
+}
+
+.log-entry__meal-description {
+  grid-area: d;
+  line-height: 1.25;
+}
+
+p {
+  margin-top: 0.2em;
+}

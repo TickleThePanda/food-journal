@@ -1,1 +1,21 @@
 Welcome to your food journal.
+
+{{#food}}
+  <div class="log-entry">
+    <h2 class="log-entry__title">{{logEntryPrettyDate}}</h2>
+    {{#meals}}
+      <div class="log-entry__meal">
+        <h3 class="log-entry__meal-title">{{title}}</h3>
+        <div class="log-entry__meal-feeling">
+          {{feeling}}
+        </div>
+        <div class="log-entry__meal-description">
+          {{md description}}
+        </div>
+      </div>
+    {{/meals}}
+    {{^meals}}
+      There are no meals for this date.
+    {{/meals}}
+  </div>
+{{/food}}

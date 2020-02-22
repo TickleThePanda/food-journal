@@ -1,0 +1,46 @@
+.meals-form {
+  background-color: #e4adad;
+
+  padding: 1rem;
+
+  h2 {
+    margin-top: 0;
+  }
+}
+
+.meals-form__list-item {
+  margin-top: 1.5em;
+}
+
+.meals-form__label {
+  margin-left: 0.32rem;
+
+  margin-top: 0.5rem;
+
+  position: relative;
+  z-index: 1;
+}
+
+.meals-form__entry {
+  margin-top: -1.2rem;
+  padding-top: 1.2rem;
+}
+
+.meals-form__list-item:first-child {
+  margin-top: 0.5em;
+}
+
+.meals-form__delete-button {
+  margin-top: 0;
+  float: right;
+}
+
+.meals-form__add-another-meal-button {
+  margin-top: 0.75em;
+  margin-left: auto;
+}
+
+.meals-form__submit-day-button {
+  margin-top: 1em;
+  margin-left: auto;
+}

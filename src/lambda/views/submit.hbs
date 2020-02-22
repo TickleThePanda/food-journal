@@ -1,0 +1,37 @@
+<template class="js-meal-template">
+  {{> meals-form meal-index="@index@" }}
+</template>
+
+<form method="POST" id="delete-form" hidden action="./delete/">
+</form>
+
+<form method="POST" id="meal-form" class="meals-form">
+
+  <button form="delete-form" class="meals-form__delete-button" value="delete">Delete whole day</button>
+
+  <h2>{{ date.label }}</h2>
+
+  <div class="meals-form__list js-meal-list-container">
+
+    {{#entry.meals}}
+      {{> meals-form meal-index=@index meal=. }}
+    {{/entry.meals}}
+    {{^entry.meals}}
+      {{> meals-form meal-index="0" }}
+    {{/entry.meals}}
+
+  </div>
+
+  <button type="button" class="meals-form__add-another-meal-button js-add-meal">Add another meal</button>
+
+  <button value="save" class="meals-form__submit-day-button">Save day</button>
+</form>
+
+<div class="submit-navigation">
+  <a href="{{ prevDate.link }}">← {{ prevDate.label }}</a>
+  {{#nextDate}}
+    <a href="{{ link }}">{{ label }} →</a>
+  {{/nextDate}}
+</div>
+
+<script src="/assets/js/submit.js"></script>
