@@ -55,8 +55,9 @@ app.use(function auth(req, res, next) {
 
   if (req.url !== '/login/' && !authed) {
     res.redirect('/login/');
+  } else if (req.url === '/login/') {
+    next();
   } else {
-
     const tokenPayload = token.split('.')[1];
     res.auth = JSON.parse(Buffer.from(tokenPayload, 'base64').toString('utf-8'));
 
